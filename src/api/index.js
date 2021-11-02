@@ -1,14 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE = 'https://jsonplace-univclone.herokuapp.com'
+const BASE = "http://fitnesstrac-kr.herokuapp.com";
 
 export async function getUsers() {
   try {
-    const { data } = await axios.get(`${ BASE }/users`);
+    const { data } = await axios.get(`${BASE}/users`);
     return data;
   } catch (error) {
     throw error;
   }
 }
 
-//^this is a starting point 
+//^this is a starting point
