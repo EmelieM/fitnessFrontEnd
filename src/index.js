@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import './style.css'
 
 import {
     BrowserRouter as Router,
@@ -8,16 +9,90 @@ import {
     Redirect
   } from 'react-router-dom';
 
-import {Header} from "./components";
+import {Header, Register} from "./components";
 
 const App = () => {
-return (
-  <div id="App">
-    <h1>Hello world!</h1>
-    <Header />
-  </div>
-)
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('');
+	const [registerToken, setRegisterToken] = useState('');
+	const [userToken, setUserToken] = useState('');
 
+	useEffect(() => {
+		{localStorage.getItem('Token') 
+			? setLoggedIn(true) 
+			: setLoggedIn(false)
+		};
+	}, []);
+
+	return (
+		<>
+			<div className="app">
+				<Header
+					loggedIn={loggedIn}
+					setLoggedIn={setLoggedIn}
+				/>
+				<Switch>
+					<Route exact path="/">
+						<Home
+							loggedIn={loggedIn}
+							setLoggedIn={setLoggedIn}
+							username={username}
+							password={password}
+							setUsername={setUsername}
+							setPassword={setPassword}
+							setRegisterToken={setRegisterToken}
+							userToken={userToken}
+							setUserToken={setUserToken}
+						/>
+					</Route>
+
+					<Route path="/register">
+						<Register
+							loggedIn={loggedIn}
+							setLoggedIn={setLoggedIn}
+							username={username}
+							password={password}
+							setUsername={setUsername}
+							setPassword={setPassword}
+							registerToken={registerToken}
+							setRegisterToken={setRegisterToken}
+						/>
+					</Route>
+
+					<Route path="/login">
+						<LogIn
+							loggedIn={loggedIn}
+							setLoggedIn={setLoggedIn}
+							username={username}
+							password={password}
+							setUsername={setUsername}
+							setPassword={setPassword}
+							setRegisterToken={setRegisterToken}
+							userToken={userToken}
+							setUserToken={setUserToken}
+						/>
+					</Route>
+
+					<Route path="/routines">
+						<Routines />
+					</Route>
+
+					<Route path="/myroutines">
+						<MyRoutines />
+					</Route>
+
+					<Route path="/activities">
+						<Activities />
+					</Route>
+
+					<Route>
+						<Message />
+					</Route>
+				</Switch>
+			</div>
+		</>
+	)
 }
 
 
