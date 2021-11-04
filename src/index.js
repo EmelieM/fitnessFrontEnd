@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./style.css";
 import { Link } from "react-router-dom";
+
 
 import {
   BrowserRouter as Router,
@@ -9,6 +11,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+
 
 import {
   Header,
@@ -24,11 +27,12 @@ import {
 } from "./components";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [registerToken, setRegisterToken] = useState("");
-  const [userToken, setUserToken] = useState("");
+	const [loggedIn, setLoggedIn] = useState(false);
+	const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('');
+	const [registerToken, setRegisterToken] = useState('');
+	const [userToken, setUserToken] = useState('');
+  const [errorMessage, setErrorMessage] = useState(false);
 
   useEffect(() => {
     {
@@ -77,7 +81,7 @@ const App = () => {
         )}
 
         <Switch>
-          {/* <Route exact path="/">
+          {<Route exact path="/">
             <Home
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
@@ -89,7 +93,7 @@ const App = () => {
               userToken={userToken}
               setUserToken={setUserToken}
             />
-          </Route> */}
+          </Route>}
 
           <Route path="/register">
             <Register
@@ -104,19 +108,21 @@ const App = () => {
             />
           </Route>
 
-          <Route path="/login">
-            <LogIn
-              loggedIn={loggedIn}
-              setLoggedIn={setLoggedIn}
-              username={username}
-              password={password}
-              setUsername={setUsername}
-              setPassword={setPassword}
-              setRegisterToken={setRegisterToken}
-              userToken={userToken}
-              setUserToken={setUserToken}
-            />
-          </Route>
+					<Route path="/login">
+            {errorMessage?<Message setErrorMessage={setErrorMessage}></Message>:null}
+						<LogIn
+							loggedIn={loggedIn}
+							setLoggedIn={setLoggedIn}
+							username={username}
+							password={password}
+							setUsername={setUsername}
+							setPassword={setPassword}
+							setRegisterToken={setRegisterToken}
+							userToken={userToken}
+							setUserToken={setUserToken}
+              setErrorMessage={setErrorMessage}
+						/>
+					</Route>
 
           <Route path="/routines">
             <Routines />
@@ -129,6 +135,7 @@ const App = () => {
           <Route path="/activities">
             <Activities />
           </Route>
+
 
           <Route>
             <Message />

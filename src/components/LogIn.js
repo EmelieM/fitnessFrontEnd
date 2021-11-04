@@ -1,4 +1,8 @@
 import React from 'react'
+import { useHistory } from 'react-router';
+import {loginUser} from '../api';
+import {Link} from 'react-router-dom'
+
 
 const LogIn = ({
 	username,
@@ -6,14 +10,15 @@ const LogIn = ({
 	setUsername,
 	setPassword,
 	setUserToken,
-	setLoggedIn }) => {
+	setLoggedIn,
+    setErrorMessage }) => {
 
 	const history = useHistory();
 
 	const logInRequest = async (event) => {
 		event.preventDefault();
 		try {
-			const data = await handleLogIn(username, password);
+			const data = await loginUser(username, password);
 			if (data.error) {
 				history.push("/message");
 			} else {
@@ -28,6 +33,7 @@ const LogIn = ({
 			}
 		} catch (error) {
 			console.error(error);
+            setErrorMessage(true)
 		}
 	};
 
