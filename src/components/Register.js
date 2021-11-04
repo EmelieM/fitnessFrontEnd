@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import {registerUser} from '../api'
+import { useHistory } from 'react-router';
 
 const Register = ({
 	username, 
@@ -25,7 +27,8 @@ const Register = ({
 	const registerRequest = async (event) => {
 		event.preventDefault();
 		try {
-			const data = await handleRegister(username, password);
+			const data = await registerUser(username, password);
+            console.log(data)
 			if (data.success === false) {
 				setUsername("");
 				setPassword("");

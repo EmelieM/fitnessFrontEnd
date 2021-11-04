@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+import {Link} from 'react-router-dom'
 
 const Home = ({username, password, setUsername, setPassword, setUserToken, loggedIn, setLoggedIn}) => {
 	const history = useHistory()

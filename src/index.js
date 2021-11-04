@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import './style.css'
 
 import {
     BrowserRouter as Router,
@@ -9,7 +8,7 @@ import {
     Redirect
   } from 'react-router-dom';
 
-import {Header, Register} from "./components";
+import {Activities, Header, Home, LogIn, Message, MyRoutines, Register, Routines} from "./components";
 
 const App = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -17,6 +16,7 @@ const App = () => {
 	const [username, setUsername] = useState('');
 	const [registerToken, setRegisterToken] = useState('');
 	const [userToken, setUserToken] = useState('');
+  const [errorMessage, setErrorMessage] = useState(false);
 
 	useEffect(() => {
 		{localStorage.getItem('Token') 
@@ -61,6 +61,7 @@ const App = () => {
 					</Route>
 
 					<Route path="/login">
+            {errorMessage?<Message setErrorMessage={setErrorMessage}></Message>:null}
 						<LogIn
 							loggedIn={loggedIn}
 							setLoggedIn={setLoggedIn}
@@ -71,6 +72,7 @@ const App = () => {
 							setRegisterToken={setRegisterToken}
 							userToken={userToken}
 							setUserToken={setUserToken}
+              setErrorMessage={setErrorMessage}
 						/>
 					</Route>
 
@@ -86,9 +88,6 @@ const App = () => {
 						<Activities />
 					</Route>
 
-					<Route>
-						<Message />
-					</Route>
 				</Switch>
 			</div>
 		</>
