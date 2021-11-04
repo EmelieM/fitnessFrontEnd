@@ -249,7 +249,11 @@ export async function addSingleActivitytoRoutine(activityId, count, duration) {
 
 //ROUTINE_ACTIVITIES
 
-export async function updateRoutineActivity(count, duration) {
+export async function updateRoutineActivity(
+  count,
+  duration,
+  routineActivityId
+) {
   try {
     const { data } = await axios.patch(
       `${BASE}/routine_activities/:${routineActivityId}`,
