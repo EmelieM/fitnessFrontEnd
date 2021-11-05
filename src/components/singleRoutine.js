@@ -9,7 +9,7 @@ const singleRoutine = ({ routine }) => {
 
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-  const [isPublic, setPublic] = useState("");
+  const [isPublic, setPublic] = useState(false);
 
   const [isActive, setActive] = useState(false);
   const editToggle = () => {
@@ -58,7 +58,7 @@ const singleRoutine = ({ routine }) => {
       <button onClick={editToggle}>Edit?</button>
       <div className={isActive ? "singleActivity" : "hidden"}>
         <form
-          id="editRoutine"
+          name="editRoutine"
           onSubmit={async (event) => {
             event.preventDefault();
 
@@ -73,7 +73,7 @@ const singleRoutine = ({ routine }) => {
           <fieldset>
             <label>Change name?</label>
             <input
-              id={routineId}
+              name="editName"
               type="text"
               value={name}
               onChange={(event) => {
@@ -85,7 +85,7 @@ const singleRoutine = ({ routine }) => {
           <fieldset>
             <label>Change goal?</label>
             <input
-              id={routineId}
+              name="editGoal"
               type="text"
               value={goal}
               onChange={(event) => {
@@ -97,13 +97,14 @@ const singleRoutine = ({ routine }) => {
           <fieldset>
             <label>Change public status?</label>
             <input
-              id={routineId}
+              name="editPublic"
               type="text"
               value={isPublic}
-              onChange={(event) => {
-                setPublic(event.target.value);
+              onChange={() => {
+                setPublic(!isPublic);
               }}
             />
+            <button type="submit">Submit</button>
           </fieldset>
         </form>
       </div>

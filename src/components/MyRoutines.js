@@ -19,7 +19,7 @@ const myRoutines = (props) => {
 
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-  const [isPublic, setPublic] = useState("");
+  const [isPublic, setPublic] = useState(false);
 
   return (
     <div>
@@ -27,7 +27,7 @@ const myRoutines = (props) => {
       <div className={isActive ? null : "hidden"}>
         <form
           id="newRoutine"
-          onSubmite={async (event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
 
             try {
@@ -63,23 +63,24 @@ const myRoutines = (props) => {
           </fieldset>
 
           <fieldset>
-            <label>Public status?</label>
+            <label>Set to Public?</label>
             <input
               name="newPublicStatus"
-              type="text"
+              type="checkbox"
               value={isPublic}
-              onChange={(event) => {
-                setPublic(event.target.value);
+              onChange={() => {
+                setPublic(!isPublic);
               }}
             />
           </fieldset>
+          <button type="submit">Submit</button>
         </form>
       </div>
 
       <div classname="allRoutinesContainer">
         <h1>Your Routines</h1>
-        {routines
-          ? routines.map((routine) => {
+        {myRoutines
+          ? myRoutines.map((routine) => {
               return (
                 <div>
                   <Link to={`/routines/:${routine.id}`} key={routine.id}>
@@ -89,7 +90,7 @@ const myRoutines = (props) => {
                     ? routine.activity.map((activity) => {
                         return (
                           <Link
-                            to={`/routine_activities/:${routineActivityId}`}
+                            to={`/routine_activities/:${activity.id}`}
                             key={activity.id}
                           >
                             <singleActivity activity={activity} />
