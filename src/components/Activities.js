@@ -46,6 +46,8 @@ const Activities = () => {
                   return results;
                 } catch (error) {
                   throw error;
+                } finally {
+                  window.location.reload();
                 }
               }}
             >

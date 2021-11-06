@@ -2,27 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteRoutineActivity, editActivity } from "../api";
 
-import React, { useState, useEffect } from "react";
+const SingleActivity = ({ activity }) => {
+  const history = useHistory();
 
-import { useLocation } from "react-router-dom"
-import {fetchRoutinesByActivity} from "../api"
-
-
-
-const SingleActivity = ({ }) => {
-
-    const pageLocation = useLocation();
-    const { activity } = pageLocation.state
-    const [routines, setRoutines] = useState([])
-
-    useEffect(() => {
-        async function setUp() {
-            const temp = await fetchRoutinesByActivity(activity.id)
-            if(temp)
-                setRoutines(temp)
-        }
-        setUp()
-    }, []);
+  const activityId = activity.id;
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -52,6 +35,8 @@ const SingleActivity = ({ }) => {
               return results;
             } catch (error) {
               throw error;
+            } finally {
+              window.location.reload();
             }
           }}
         >
@@ -72,11 +57,12 @@ const SingleActivity = ({ }) => {
             <input
               name="editDesc"
               type="text"
-              value={name}
+              value={description}
               onChange={(event) => {
                 setDescription(event.target.value);
               }}
             />
+            <button type="submit">Submit</button>
           </fieldset>
         </form>
       </div>
@@ -95,9 +81,11 @@ const SingleActivity = ({ }) => {
             }}
           />
           <button
-            onClick={(event) => {
+            onClick={async (event) => {
               event.preventDefault();
-              certainDelete ? deleteRoutineActivity(activityId) : null;
+              certainDelete
+                ? await deleteRoutineActivity(activity.routineActivityId)
+                : null;
               history.push("/");
             }}
           >

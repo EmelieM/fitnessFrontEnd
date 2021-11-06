@@ -21,11 +21,9 @@ import {
   Message,
   MyRoutines,
   Routines,
-  singleActivity,
-  singleRoutine,
+  SingleActivity,
+  SingleRoutine,
 } from "./components";
-import SingleActivity from "./components/SingleActivity";
-import SingleRoutine from "./components/SingleRoutine";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);

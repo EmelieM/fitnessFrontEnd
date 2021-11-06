@@ -39,7 +39,7 @@ const Home = ({
     <>
       {loggedIn ? (
         <div className="messageUnderHeader">
-          <h3>Logged in as {localStorage.getItem(`Username`)}</h3>
+          <h3>Logged in as {username}</h3>
         </div>
       ) : (
         <>

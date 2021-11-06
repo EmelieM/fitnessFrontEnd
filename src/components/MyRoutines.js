@@ -33,6 +33,8 @@ const myRoutines = (props) => {
 
             try {
               const results = await createRoutine(name, goal, isPublic);
+              const newRoutineArr = [results, ...myRoutines];
+              setMyRoutines(newRoutineArr);
               return results;
             } catch (error) {
               throw error;
@@ -85,15 +87,17 @@ const myRoutines = (props) => {
               return (
                 <div key={routine.id}>
                   <SingleRoutine routine={routine} />
-                  {routine.activities.map((act) => {
-                    return (
-                      <div key={act.id}>
-                        <p>{act.name}</p>
-                        <p>{act.description}</p>
-                        <SingleActivity activity={act} key={act.id} />
-                      </div>
-                    );
-                  })}
+                  {routine.activities
+                    ? routine.activities.map((act) => {
+                        return (
+                          <div key={act.id}>
+                            <p>{act.name}</p>
+                            <p>{act.description}</p>
+                            <SingleActivity activity={act} key={act.id} />
+                          </div>
+                        );
+                      })
+                    : null}
                 </div>
               );
             })
