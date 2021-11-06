@@ -2,10 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteRoutineActivity, editActivity } from "../api";
 
-const SingleActivity = ({ activity }) => {
-  const history = useHistory();
+import React, { useState, useEffect } from "react";
 
-  const activityId = activity.id;
+import { useLocation } from "react-router-dom"
+import {fetchRoutinesByActivity} from "../api"
+
+
+
+const SingleActivity = ({ }) => {
+
+    const pageLocation = useLocation();
+    const { activity } = pageLocation.state
+    const [routines, setRoutines] = useState([])
+
+    useEffect(() => {
+        async function setUp() {
+            const temp = await fetchRoutinesByActivity(activity.id)
+            if(temp)
+                setRoutines(temp)
+        }
+        setUp()
+    }, []);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
