@@ -89,6 +89,8 @@ const SingleRoutine = ({ routine }) => {
               return results;
             } catch (error) {
               throw error;
+            } finally {
+              window.location.reload();
             }
           }}
         >
@@ -163,7 +165,6 @@ const SingleRoutine = ({ routine }) => {
             >
               <option value="any">Any</option>
               {activitiesList.map((singleAct) => {
-                // console.log("SINGLE!", singleAct);
                 return (
                   <option value={singleAct.id} key={singleAct.id}>
                     {singleAct.name}

@@ -119,7 +119,7 @@ export async function editActivity(name, description, activityId) {
   const token = getToken();
   try {
     const { data } = await axios.patch(
-      `${BASE}/activities/:${activityId}`,
+      `${BASE}/activities/${activityId}`,
 
       {
         name,
@@ -144,7 +144,7 @@ export async function editActivity(name, description, activityId) {
 export async function getRoutinesWithActivity(activityId) {
   try {
     const { data } = await axios.get(
-      `${BASE}/activities/:${activityId}/routines`
+      `${BASE}/activities/${activityId}/routines`
     );
     return data;
   } catch (error) {
@@ -196,7 +196,7 @@ export async function updateRoutine(name, goal, isPublic) {
   const token = getToken();
   try {
     const { data } = await axios.patch(
-      `${BASE}/routines/:${routineId}`,
+      `${BASE}/routines/${routineId}`,
       {
         name,
         goal,
@@ -218,8 +218,9 @@ export async function updateRoutine(name, goal, isPublic) {
 
 export async function deleteRoutine(routineId) {
   const token = getToken();
+  console.log("TOKENROUTINE", token);
   try {
-    const { data } = axios.delete(`${BASE}/:${routineId}`, {
+    const { data } = axios.delete(`${BASE}/routines/${routineId}`, {
       headers: {
         "Content-Type": "application/JSON",
         Authorization: `Bearer ${token}`,
