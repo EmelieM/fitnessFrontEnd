@@ -24,6 +24,8 @@ import {
   singleActivity,
   singleRoutine,
 } from "./components";
+import SingleActivity from "./components/SingleActivity";
+import SingleRoutine from "./components/SingleRoutine";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -70,7 +72,7 @@ const App = () => {
             <Link className="navBarLink" to="/myroutines">
               My Routines
             </Link>
-            <Link className="navBarLink" to="/activites">
+            <Link className="navBarLink" to="/activities">
               Activities
             </Link>
             <button className="navBarLink" onClick={clearCurrentUser}>
@@ -137,6 +139,14 @@ const App = () => {
 
           <Route path="/activities">
             <Activities />
+          </Route>
+
+          <Route path="/SingleActivity/:activityId">
+            <SingleActivity />
+          </Route>
+
+          <Route path="/SingleRoutine/:routineId">
+            <SingleRoutine />
           </Route>
         </Switch>
       </div>

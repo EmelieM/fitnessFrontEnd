@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
-import { Link } from "react-router-dom";
+import SingleRoutine from "./SingleRoutine";
+import SingleActivity from "./SingleActivity";
 
 import { getUserRoutines, createRoutine } from "../api";
 
@@ -77,27 +78,22 @@ const myRoutines = (props) => {
         </form>
       </div>
 
-      <div classname="allRoutinesContainer">
+      <div className="allRoutinesContainer">
         <h1>Your Routines</h1>
         {myRoutines
           ? myRoutines.map((routine) => {
               return (
-                <div>
-                  <Link to={`/routines/:${routine.id}`} key={routine.id}>
-                    <singleRoutine routine={routine} />
-                  </Link>
-                  {routine.activity
-                    ? routine.activity.map((activity) => {
-                        return (
-                          <Link
-                            to={`/routine_activities/:${activity.id}`}
-                            key={activity.id}
-                          >
-                            <singleActivity activity={activity} />
-                          </Link>
-                        );
-                      })
-                    : null}
+                <div key={routine.id}>
+                  <SingleRoutine routine={routine} />
+                  {routine.activities.map((act) => {
+                    return (
+                      <div key={act.id}>
+                        <p>{act.name}</p>
+                        <p>{act.description}</p>
+                        <SingleActivity activity={act} key={act.id} />
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })

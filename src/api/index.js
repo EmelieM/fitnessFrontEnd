@@ -193,6 +193,7 @@ export async function createRoutine(name, goal, isPublic) {
 //
 
 export async function updateRoutine(name, goal, isPublic) {
+  const token = getToken();
   try {
     const { data } = await axios.patch(
       `${BASE}/routines/:${routineId}`,
@@ -216,6 +217,7 @@ export async function updateRoutine(name, goal, isPublic) {
 //
 
 export async function deleteRoutine(routineId) {
+  const token = getToken();
   try {
     const { data } = axios.delete(`${BASE}/:${routineId}`, {
       headers: {
@@ -231,16 +233,23 @@ export async function deleteRoutine(routineId) {
 
 //
 
-export async function addSingleActivitytoRoutine(activityId, count, duration) {
+export async function addSingleActivitytoRoutine(
+  activityId,
+  routineId,
+  count,
+  duration
+) {
+  console.log("API!", activityId);
   try {
     const { data } = await axios.post(
-      `${BASE}/routines/:${routineId}/activities`,
+      `${BASE}/routines/${routineId}/activities`,
       {
         activityId,
         count,
         duration,
       }
     );
+    console.log(data);
     return data;
   } catch (error) {
     throw error;
@@ -256,7 +265,7 @@ export async function updateRoutineActivity(
 ) {
   try {
     const { data } = await axios.patch(
-      `${BASE}/routine_activities/:${routineActivityId}`,
+      `${BASE}/routine_activities/${routineActivityId}`,
       {
         count,
         duration,
@@ -269,10 +278,13 @@ export async function updateRoutineActivity(
 
 //
 
-export async function deleteRoutineActivity() {
+export async function deleteRoutineActivity(routineActivityId) {
+  const token = getToken();
+  console.log("TOKEN!", token);
+  console.log("ROUTINEID", routineActivityId);
   try {
     const { data } = await axios.delete(
-      `${BASE}/routine_activities/:${routineActivityId}`,
+      `${BASE}/routine_activities/${routineActivityId}`,
       {
         headers: {
           "Content-Type": "application/JSON",
@@ -280,6 +292,8 @@ export async function deleteRoutineActivity() {
         },
       }
     );
+    console.log("DATA", data);
+    return data;
   } catch (error) {
     throw error;
   }

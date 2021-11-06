@@ -1,7 +1,7 @@
-
-import React from 'react';
-import { useHistory } from 'react-router';
-import {Link} from 'react-router-dom'
+import React from "react";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { loginUser } from "../api";
 
 const Home = ({
   username,
@@ -17,7 +17,7 @@ const Home = ({
   const logInRequest = async (event) => {
     event.preventDefault();
     try {
-      const data = await handleLogIn(username, password);
+      const data = await loginUser(username, password);
       if (data.error) {
         history.push("/message");
       } else {

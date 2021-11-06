@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
+import SingleActivity from "./SingleActivity";
 
 import { getActivities, createActivity } from "../api";
 import { getToken } from "../auth";
@@ -14,7 +15,7 @@ const Activities = () => {
 
   useEffect(() => {
     const token = getToken();
-    return token;
+    setToken(token);
   }, []);
 
   const [isActive, setActive] = useState(false);
@@ -24,6 +25,8 @@ const Activities = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const [token, setToken] = useState("");
 
   return (
     <div>
@@ -80,6 +83,7 @@ const Activities = () => {
               <div key={activity.id}>
                 <h1>{activity.name}</h1>
                 <h2>{activity.description}</h2>
+                <SingleActivity activity={activity} key={activity.id} />
               </div>
             );
           })
